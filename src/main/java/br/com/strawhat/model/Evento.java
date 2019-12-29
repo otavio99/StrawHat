@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import br.com.strawhat.model.enums.TipoEvento;
 
 @Entity(name = "evento")
 public class Evento implements Serializable{
@@ -15,14 +19,18 @@ public class Evento implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String data;
-	private long idEvento;
+	private long tipo;
+	
+	@ManyToOne
+	@JoinColumn(name = "associado_id")
+	private Associado associado;
 	
 	public Evento() {}
 
-	public Evento(long id, String data, long idEvento) {
+	public Evento(long id, String data,  TipoEvento idEvento) {
 		this.id = id;
 		this.data = data;
-		this.idEvento = idEvento;
+		this.tipo = idEvento.getId();
 	}
 
 	public long getId() {
@@ -42,11 +50,11 @@ public class Evento implements Serializable{
 	}
 
 	public long getIdEvento() {
-		return idEvento;
+		return tipo;
 	}
 
 	public void setIdEvento(long idEvento) {
-		this.idEvento = idEvento;
+		this.tipo = idEvento;
 	}
 	
 }

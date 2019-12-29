@@ -25,16 +25,19 @@ public class Associado implements Serializable{
 	private String telefone;
 	private String dataDeNascimento;
 	
-	private Entidade paiDeCabeca;
-	private Entidade maeDeCabeca;
+	@OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
+	private List<Entidade> paisDeCabeca = new ArrayList<Entidade>();
 	
 	@OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
 	private List<Mensalidade> mensalidades = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
+	private List<Evento> eventos = new ArrayList<Evento>();
+	
 	public Associado() {}
 
 	public Associado(long id, String name, String cpf, String rg, String endereco, String telefone,
-			String dataDeNascimento, Entidade paiDeCabeca, Entidade maeDeCabeca) {
+			String dataDeNascimento) {
 		this.id = id;
 		this.name = name;
 		this.cpf = cpf;
@@ -42,8 +45,6 @@ public class Associado implements Serializable{
 		this.endereco = endereco;
 		this.telefone = telefone;
 		this.dataDeNascimento = dataDeNascimento;
-		this.paiDeCabeca = paiDeCabeca;
-		this.maeDeCabeca = maeDeCabeca;
 	}
 
 	public long getId() {
@@ -102,20 +103,28 @@ public class Associado implements Serializable{
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
-	public Entidade getPaiDeCabeca() {
-		return paiDeCabeca;
+	public List<Entidade> getPaisDeCabeca() {
+		return paisDeCabeca;
 	}
 
-	public void setPaiDeCabeca(Entidade paiDeCabeca) {
-		this.paiDeCabeca = paiDeCabeca;
+	public void setPaisDeCabeca(List<Entidade> paisDeCabeca) {
+		this.paisDeCabeca = paisDeCabeca;
 	}
 
-	public Entidade getMaeDeCabeca() {
-		return maeDeCabeca;
+	public List<Mensalidade> getMensalidades() {
+		return mensalidades;
 	}
 
-	public void setMaeDeCabeca(Entidade maeDeCabeca) {
-		this.maeDeCabeca = maeDeCabeca;
+	public void setMensalidades(List<Mensalidade> mensalidades) {
+		this.mensalidades = mensalidades;
+	}
+
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
 	}
 	
 }

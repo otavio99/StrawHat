@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import br.com.strawhat.model.enums.TipoEvento;
 
@@ -14,8 +13,8 @@ import br.com.strawhat.model.enums.TipoEvento;
 public class Batismo extends PadrinhosEvento implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@OneToMany(mappedBy = "batismo", cascade = CascadeType.ALL)
-	private List<Entidade> padrinhosEspirituais = new ArrayList<Entidade>();
+	@ManyToMany(mappedBy = "padrinhos")
+	private List<Entidade> padrinhos = new ArrayList<Entidade>();
 	
 	public Batismo() {}
 	
@@ -24,11 +23,11 @@ public class Batismo extends PadrinhosEvento implements Serializable{
 	}
 
 	public List<Entidade> getPadrinhosEspirituais() {
-		return padrinhosEspirituais;
+		return padrinhos;
 	}
 
-	public void setPadrinhosEspirituais(List<Entidade> padrinhosEspirituais) {
-		this.padrinhosEspirituais = padrinhosEspirituais;
+	public void setPadrinhosEspirituais(List<Entidade> padrinhos) {
+		this.padrinhos = padrinhos;
 	}
 
 }

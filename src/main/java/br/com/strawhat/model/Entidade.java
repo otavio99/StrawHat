@@ -1,13 +1,16 @@
 package br.com.strawhat.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity(name = "entidade")
 public class Entidade implements Serializable{
@@ -19,9 +22,15 @@ public class Entidade implements Serializable{
 	private String data;
 	private String nome;
 	
-	@ManyToOne
-	@JoinColumn(name = "batismo_id")
-	private Batismo batismo;
+	@ManyToMany(mappedBy = "entidades")
+	private List<Associado> afilhados = new ArrayList<Associado>();
+	
+	@ManyToMany
+	@JoinTable(name = "ENTIDADE_BATISMO",
+		joinColumns = @JoinColumn(name = "entidade_id"), 
+		inverseJoinColumns = @JoinColumn(name = "batismo_id")
+	)
+	private List<Batismo> batismos = new ArrayList<Batismo>();
 	
 	public Entidade(){}
 	
@@ -54,6 +63,14 @@ public class Entidade implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public List<Associado> getAfilhados() {
+		return afilhados;
+	}
+
+	public void setAfilhados(List<Associado> afilhados) {
+		this.afilhados = afilhados;
 	}
 	
 }

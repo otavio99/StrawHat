@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity(name = "associado")
@@ -18,7 +21,7 @@ public class Associado implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String name;
+	private String nome;
 	private String cpf;
 	private String rg;
 	private String endereco;
@@ -26,20 +29,24 @@ public class Associado implements Serializable{
 	private String dataDeNascimento;
 	
 	@OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
-	private List<Entidade> paisDeCabeca = new ArrayList<Entidade>();
-	
-	@OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
 	private List<Mensalidade> mensalidades = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
 	private List<Evento> eventos = new ArrayList<Evento>();
+	
+	@ManyToMany(mappedBy = "paisDeCabeca")
+	@JoinTable(name = "ASSOCIADO_ENTIDADE",
+		joinColumns = @JoinColumn(name = "associado_id"), 
+		inverseJoinColumns = @JoinColumn(name = "entidade_id")
+	)
+	private List<Entidade> paisDeCabeca = new ArrayList<Entidade>();
 	
 	public Associado() {}
 
 	public Associado(long id, String name, String cpf, String rg, String endereco, String telefone,
 			String dataDeNascimento) {
 		this.id = id;
-		this.name = name;
+		this.nome = name;
 		this.cpf = cpf;
 		this.rg = rg;
 		this.endereco = endereco;
@@ -56,11 +63,11 @@ public class Associado implements Serializable{
 	}
 
 	public String getName() {
-		return name;
+		return nome;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.nome = name;
 	}
 
 	public String getCpf() {

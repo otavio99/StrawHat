@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "entidade")
 public class Entidade implements Serializable{
@@ -18,34 +18,32 @@ public class Entidade implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Integer id;
 	private String data;
 	private String nome;
 	
-	@ManyToMany(mappedBy = "entidades")
+	@JsonIgnore
+	@ManyToMany(mappedBy = "paisDeCabeca")
 	private List<Associado> afilhados = new ArrayList<Associado>();
 	
-	@ManyToMany
-	@JoinTable(name = "ENTIDADE_BATISMO",
-		joinColumns = @JoinColumn(name = "entidade_id"), 
-		inverseJoinColumns = @JoinColumn(name = "batismo_id")
-	)
+	@JsonIgnore
+	@ManyToMany(mappedBy = "padrinhos")
 	private List<Batismo> batismos = new ArrayList<Batismo>();
 	
 	public Entidade(){}
 	
-	public Entidade(long id, String data, String nome) {
+	public Entidade(Integer id, String data, String nome) {
 		super();
 		this.id = id;
 		this.data = data;
 		this.nome = nome;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -71,6 +69,14 @@ public class Entidade implements Serializable{
 
 	public void setAfilhados(List<Associado> afilhados) {
 		this.afilhados = afilhados;
+	}
+
+	public List<Batismo> getBatismos() {
+		return batismos;
+	}
+
+	public void setBatismos(List<Batismo> batismos) {
+		this.batismos = batismos;
 	}
 	
 }

@@ -5,21 +5,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import br.com.strawhat.model.enums.TipoEvento;
 
 @Entity(name = "batismo")
+//@PrimaryKeyJoinColumn(name="id")
 public class Batismo extends PadrinhosEvento implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToMany(mappedBy = "padrinhos")
+	@ManyToMany
+	@JoinTable(name = "ENTIDADE_BATISMO",
+		joinColumns = @JoinColumn(name = "entidade_id"), 
+		inverseJoinColumns = @JoinColumn(name = "batismo_id")
+	)
 	private List<Entidade> padrinhos = new ArrayList<Entidade>();
 	
 	public Batismo() {}
 	
-	public Batismo(long id, String data, TipoEvento idEvento, String padrinho, String madrinha, String padrinhoEspiritual, String madrinhaEspiritual) {
-		super(id, data, idEvento, padrinho, madrinha);
+	public Batismo(Integer id, String data, TipoEvento tipo, String padrinho, String madrinha, ArrayList<Entidade> padrinhos) {
+		super(id, data, tipo, padrinho, madrinha);
+		this.padrinhos = padrinhos;
 	}
 
 	public List<Entidade> getPadrinhosEspirituais() {

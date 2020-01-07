@@ -1,38 +1,44 @@
 package br.com.strawhat.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 
 import br.com.strawhat.model.enums.TipoEvento;
 
-@Entity(name = "padrinhos_evento")
+@Entity(name = "padrinhosEvento")
+//@PrimaryKeyJoinColumn(name="id")
 public class PadrinhosEvento extends Evento implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
-	private List<Associado> padrinhos = new ArrayList<Associado>();
+	private String padrinho;
+	private String madrinha;
 	
 	public PadrinhosEvento() {}
 	
-	public PadrinhosEvento(long id, String data, TipoEvento idEvento, String padrinho, String madrinha) {
+	public PadrinhosEvento(Integer id, String data, TipoEvento idEvento, String padrinho, String madrinha) {
 		super(id, data, idEvento);
+		this.padrinho = padrinho;
+		this.madrinha = madrinha;
 	}
 	
 	public PadrinhosEvento(String padrinho, String madrinha) {
 		super();
 	}
 
-	public List<Associado> getPadrinhos() {
-		return padrinhos;
+	public String getPadrinho() {
+		return padrinho;
 	}
 
-	public void setPadrinhos(List<Associado> padrinhos) {
-		this.padrinhos = padrinhos;
+	public void setPadrinho(String padrinho) {
+		this.padrinho = padrinho;
 	}
-	
+
+	public String getMadrinha() {
+		return madrinha;
+	}
+
+	public void setMadrinha(String madrinha) {
+		this.madrinha = madrinha;
+	}
 }

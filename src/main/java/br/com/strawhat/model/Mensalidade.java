@@ -9,24 +9,27 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "mensalidade")
 public class Mensalidade implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 	private String data;
 	private double valor;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "associado_id")
 	private Associado associado;
 	
 	public Mensalidade() {}
 	
-	public Mensalidade(String data, double valor) {
-		super();
+	public Mensalidade(Integer id, String data, double valor) {
+		this.id = id;
 		this.data = data;
 		this.valor = valor;
 	}
@@ -43,11 +46,11 @@ public class Mensalidade implements Serializable{
 		this.valor = valor;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

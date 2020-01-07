@@ -1,23 +1,23 @@
 package br.com.strawhat.model.enums;
 
 public enum TipoEvento {
-	TIPO1(1, "Batismo"),
+	BATISMO(1, "Batismo"),
 	TIPO2(2, "aaa"),
 	TIPO3(3, "aaa");
 	
-	private long id;
+	private Integer id;
 	private String descricao;
 	
-	private TipoEvento(long id, String descricao) {
+	private TipoEvento(Integer id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -29,7 +29,7 @@ public enum TipoEvento {
 		this.descricao = descricao;
 	}
 	
-	public static TipoEvento toEnum(Long id) {
+	public static TipoEvento toEnum(Integer id) {
 		if(id==null) {
 			return null;
 		}

@@ -6,38 +6,44 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.strawhat.model.enums.TipoEvento;
 
 @Entity(name = "evento")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Evento implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 	private String data;
-	private long tipo;
+	private Integer tipo;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "associado_id")
 	private Associado associado;
 	
 	public Evento() {}
 
-	public Evento(long id, String data,  TipoEvento idEvento) {
+	public Evento(Integer id, String data,  TipoEvento tipo) {
 		this.id = id;
 		this.data = data;
-		this.tipo = idEvento.getId();
+		this.tipo = tipo.getId();
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -49,12 +55,25 @@ public class Evento implements Serializable{
 		this.data = data;
 	}
 
-	public long getIdEvento() {
-		return tipo;
+	public TipoEvento getTipo() {
+		return TipoEvento.toEnum(tipo);
 	}
 
-	public void setIdEvento(long idEvento) {
-		this.tipo = idEvento;
+	public void setTipo(TipoEvento tipo) {
+		this.tipo = tipo.getId();
 	}
+
+	public Associado getAssociado() {
+		return associado;
+	}
+
+	public void setAssociado(Associado associado) {
+		this.associado = associado;
+	}
+
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
+	}
+	
 	
 }

@@ -20,7 +20,7 @@ public class Associado implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Integer id;
 	private String nome;
 	private String cpf;
 	private String rg;
@@ -34,7 +34,7 @@ public class Associado implements Serializable{
 	@OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
 	private List<Evento> eventos = new ArrayList<Evento>();
 	
-	@ManyToMany(mappedBy = "paisDeCabeca")
+	@ManyToMany
 	@JoinTable(name = "ASSOCIADO_ENTIDADE",
 		joinColumns = @JoinColumn(name = "associado_id"), 
 		inverseJoinColumns = @JoinColumn(name = "entidade_id")
@@ -43,10 +43,10 @@ public class Associado implements Serializable{
 	
 	public Associado() {}
 
-	public Associado(long id, String name, String cpf, String rg, String endereco, String telefone,
+	public Associado(Integer id, String nome, String cpf, String rg, String endereco, String telefone,
 			String dataDeNascimento) {
 		this.id = id;
-		this.nome = name;
+		this.nome = nome;
 		this.cpf = cpf;
 		this.rg = rg;
 		this.endereco = endereco;
@@ -54,19 +54,19 @@ public class Associado implements Serializable{
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getNome() {
 		return nome;
 	}
 
-	public void setName(String name) {
+	public void setNome(String name) {
 		this.nome = name;
 	}
 

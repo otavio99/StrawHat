@@ -24,6 +24,8 @@ public class Evento implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String data;
+	
+	@JsonIgnore
 	private Integer tipo;
 	
 	@JsonIgnore

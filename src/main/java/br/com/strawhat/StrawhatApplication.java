@@ -71,14 +71,14 @@ public class StrawhatApplication implements CommandLineRunner{
 		entidade1.setBatismos(Arrays.asList(evento1));
 		entidade2.setBatismos(Arrays.asList(evento1));
 		
-//		batismoRepository.saveAll(Arrays.asList(evento1));
+///		batismoRepository.saveAll(Arrays.asList(evento1));
 		
 		associado1.setEventos(Arrays.asList(evento1));
 		
-//		entidadeRepository.saveAll(Arrays.asList(entidade1, entidade2));
-//		associadoRepository.saveAll(Arrays.asList(associado1));
-//		mensalidadeRepository.saveAll(Arrays.asList(mensalidade1));
-//		
+///		entidadeRepository.saveAll(Arrays.asList(entidade1, entidade2));
+///		associadoRepository.saveAll(Arrays.asList(associado1));
+///		mensalidadeRepository.saveAll(Arrays.asList(mensalidade1));
+///		
 		batismoRepository.saveAll(Arrays.asList(evento1));
 		
 		associadoRepository.saveAll(Arrays.asList(associado1));

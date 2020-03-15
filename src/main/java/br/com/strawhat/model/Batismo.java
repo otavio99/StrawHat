@@ -2,6 +2,7 @@ package br.com.strawhat.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ public class Batismo extends PadrinhosEvento implements Serializable{
 	
 	public Batismo() {}
 	
-	public Batismo(Integer id, String data, TipoEvento tipo, String padrinho, String madrinha, ArrayList<Entidade> padrinhos) {
+	public Batismo(Integer id, Date data, TipoEvento tipo, String padrinho, String madrinha, ArrayList<Entidade> padrinhos) {
 		super(id, data, tipo, padrinho, madrinha);
 		this.padrinhos = padrinhos;
 	}

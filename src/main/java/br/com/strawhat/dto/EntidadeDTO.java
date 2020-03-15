@@ -1,10 +1,12 @@
 package br.com.strawhat.dto;
 
+import java.util.Date;
+
 import br.com.strawhat.model.Entidade;
 
 public class EntidadeDTO {
 	private Integer id;
-	private String data;
+	private Date data;
 	private String nome;
 	
 	public EntidadeDTO() {}
@@ -23,11 +25,11 @@ public class EntidadeDTO {
 		this.id = id;
 	}
 
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 

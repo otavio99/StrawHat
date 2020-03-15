@@ -1,6 +1,7 @@
 package br.com.strawhat.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import br.com.strawhat.model.Evento;
 
@@ -8,7 +9,7 @@ public class EventoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String data;
+	private Date data;
 	
 	public EventoDTO() {}
 
@@ -25,11 +26,11 @@ public class EventoDTO implements Serializable{
 		this.id = id;
 	}
 
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 }

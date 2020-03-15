@@ -1,6 +1,7 @@
 package br.com.strawhat.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 
@@ -16,7 +17,7 @@ public class PadrinhosEvento extends Evento implements Serializable{
 	
 	public PadrinhosEvento() {}
 	
-	public PadrinhosEvento(Integer id, String data, TipoEvento idEvento, String padrinho, String madrinha) {
+	public PadrinhosEvento(Integer id, Date data, TipoEvento idEvento, String padrinho, String madrinha) {
 		super(id, data, idEvento);
 		this.padrinho = padrinho;
 		this.madrinha = madrinha;

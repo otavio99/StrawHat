@@ -2,49 +2,50 @@ package br.com.strawhat.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity(name = "associado")
-public class Associado implements Serializable{
+public class Associado implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@Column(unique = true)
 	private String cpf;
+	
+	@Column(unique = true)
 	private String rg;
 	private String endereco;
 	private String telefone;
-	private String dataDeNascimento;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date dataDeNascimento;
+
 	@OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
 	private List<Mensalidade> mensalidades = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "associado", cascade = CascadeType.ALL)
 	private List<Evento> eventos = new ArrayList<Evento>();
-	
-	@ManyToMany
-	@JoinTable(name = "ASSOCIADO_ENTIDADE",
-		joinColumns = @JoinColumn(name = "associado_id"), 
-		inverseJoinColumns = @JoinColumn(name = "entidade_id")
-	)
-	private List<Entidade> paisDeCabeca = new ArrayList<Entidade>();
-	
-	public Associado() {}
+
+	public Associado() {
+	}
 
 	public Associado(Integer id, String nome, String cpf, String rg, String endereco, String telefone,
-			String dataDeNascimento) {
+			Date dataDeNascimento) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -102,20 +103,12 @@ public class Associado implements Serializable{
 		this.telefone = telefone;
 	}
 
-	public String getDataDeNascimento() {
+	public Date getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(String dataDeNascimento) {
+	public void setDataDeNascimento(Date dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
-	}
-
-	public List<Entidade> getPaisDeCabeca() {
-		return paisDeCabeca;
-	}
-
-	public void setPaisDeCabeca(List<Entidade> paisDeCabeca) {
-		this.paisDeCabeca = paisDeCabeca;
 	}
 
 	public List<Mensalidade> getMensalidades() {
@@ -133,5 +126,29 @@ public class Associado implements Serializable{
 	public void setEventos(List<Evento> eventos) {
 		this.eventos = eventos;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Associado other = (Associado) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

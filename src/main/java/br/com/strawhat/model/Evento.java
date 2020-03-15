@@ -1,6 +1,7 @@
 package br.com.strawhat.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,31 +12,33 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.strawhat.model.enums.TipoEvento;
 
 @Entity(name = "evento")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Evento implements Serializable{
+public class Evento implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String data;
 	
-	@JsonIgnore
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date data;
 	private Integer tipo;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "associado_id")
 	private Associado associado;
-	
-	public Evento() {}
 
-	public Evento(Integer id, String data,  TipoEvento tipo) {
+	public Evento() {
+	}
+
+	public Evento(Integer id, Date data, TipoEvento tipo) {
 		this.id = id;
 		this.data = data;
 		this.tipo = tipo.getId();
@@ -49,11 +52,11 @@ public class Evento implements Serializable{
 		this.id = id;
 	}
 
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
@@ -76,6 +79,29 @@ public class Evento implements Serializable{
 	public void setTipo(Integer tipo) {
 		this.tipo = tipo;
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Evento other = (Evento) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

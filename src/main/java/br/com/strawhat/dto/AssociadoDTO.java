@@ -1,6 +1,7 @@
 package br.com.strawhat.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import br.com.strawhat.model.Associado;
 
@@ -13,7 +14,7 @@ private static final long serialVersionUID = 1L;
 	private String rg;
 	private String endereco;
 	private String telefone;
-	private String dataDeNascimento;
+	private Date dataDeNascimento;
 	
 	public AssociadoDTO() {}
 
@@ -75,11 +76,11 @@ private static final long serialVersionUID = 1L;
 		this.telefone = telefone;
 	}
 
-	public String getDataDeNascimento() {
+	public Date getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(String dataDeNascimento) {
+	public void setDataDeNascimento(Date dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 }

@@ -14,11 +14,13 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import br.com.strawhat.model.enums.TipoEvento;
 
 @Entity(name = "evento")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public class Evento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -41,7 +43,7 @@ public class Evento implements Serializable {
 	public Evento(Integer id, Date data, TipoEvento tipo) {
 		this.id = id;
 		this.data = data;
-		this.tipo = tipo.getId();
+		this.tipo = (tipo == null) ? null : tipo.getId();
 	}
 
 	public Integer getId() {
@@ -74,10 +76,6 @@ public class Evento implements Serializable {
 
 	public void setAssociado(Associado associado) {
 		this.associado = associado;
-	}
-
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
 	}
 
 	@Override

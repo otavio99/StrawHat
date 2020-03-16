@@ -32,7 +32,8 @@ public class AssociadoResources {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Associado obj){
+	public ResponseEntity<Void> insert(@RequestBody AssociadoDTO objDto){
+		Associado obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -40,7 +41,8 @@ public class AssociadoResources {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Associado obj, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@RequestBody AssociadoDTO objDto, @PathVariable Integer id){
+		Associado obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();

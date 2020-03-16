@@ -5,10 +5,13 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import br.com.strawhat.model.enums.TipoEvento;
 
 @Entity(name = "padrinhosEvento")
 //@PrimaryKeyJoinColumn(name="id")
+@JsonTypeName("padrinhosEvento")
 public class PadrinhosEvento extends Evento implements Serializable{
 	private static final long serialVersionUID = 1L;
 

@@ -3,19 +3,30 @@ package br.com.strawhat.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.strawhat.model.Evento;
 
 public class EventoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@NotEmpty(message = "Preenchimento Obrigatório")
 	private Date data;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório")
+	private Integer tipo;
 	
 	public EventoDTO() {}
 
 	public EventoDTO(Evento obj) {
 		id = obj.getId();
 		data = obj.getData();
+		tipo = obj.getTipo().getId();
 	}
 
 	public Integer getId() {
@@ -32,5 +43,13 @@ public class EventoDTO implements Serializable{
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	public Integer getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
 	}
 }

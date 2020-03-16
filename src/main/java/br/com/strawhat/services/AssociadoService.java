@@ -10,27 +10,28 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import br.com.strawhat.dto.AssociadoDTO;
 import br.com.strawhat.model.Associado;
 import br.com.strawhat.repository.AssociadoRepository;
 import br.com.strawhat.services.exceptions.DataIntegrityException;
 
 @Service
 public class AssociadoService {
-	
+
 	@Autowired
 	private AssociadoRepository repo;
-	
+
 	public Associado find(Integer id) {
-		Optional<Associado> associado = repo.findById(id); 
-		return associado.orElseThrow(() -> new br.com.strawhat.services.exceptions.
-				ObjectNotFoundException("Objeto não encontrado! Id: " + id + " Tipo: " + Associado.class.getName()));
+		Optional<Associado> associado = repo.findById(id);
+		return associado.orElseThrow(() -> new br.com.strawhat.services.exceptions.ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + " Tipo: " + Associado.class.getName()));
 	}
-	
+
 	public Associado insert(Associado obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
-	
+
 	public Associado update(Associado obj) {
 		find(obj.getId());
 		return repo.save(obj);
@@ -40,8 +41,7 @@ public class AssociadoService {
 		find(id);
 		try {
 			repo.deleteById(id);
-		}
-		catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir uma Associado que possui produtos.");
 		}
 	}
@@ -49,9 +49,14 @@ public class AssociadoService {
 	public List<Associado> findAll() {
 		return repo.findAll();
 	}
-	
-	public Page<Associado> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+
+	public Page<Associado> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+
+	public Associado fromDTO(AssociadoDTO objDto) {
+		return new Associado(objDto.getId(), objDto.getNome(), objDto.getCpf(), objDto.getRg(), objDto.getEndereco(),
+				objDto.getTelefone(), objDto.getDataDeNascimento());
 	}
 }

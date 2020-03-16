@@ -10,10 +10,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import br.com.strawhat.model.enums.TipoEvento;
 
 @Entity(name = "batismo")
 //@PrimaryKeyJoinColumn(name="id")
+@JsonTypeName("batismo")
 public class Batismo extends PadrinhosEvento implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

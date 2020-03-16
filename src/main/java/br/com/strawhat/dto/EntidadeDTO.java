@@ -2,11 +2,20 @@ package br.com.strawhat.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.strawhat.model.Entidade;
 
 public class EntidadeDTO {
 	private Integer id;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@NotEmpty(message = "Preenchimento Obrigatório")
 	private Date data;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório")
 	private String nome;
 	
 	public EntidadeDTO() {}

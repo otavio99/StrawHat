@@ -1,6 +1,8 @@
 package br.com.strawhat.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.strawhat.dto.MensalidadeDTO;
 import br.com.strawhat.model.Mensalidade;
 import br.com.strawhat.services.MensalidadeService;
 
@@ -45,5 +48,12 @@ public class MensalidadeResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<MensalidadeDTO>> findAll() {
+		List<Mensalidade> list = service.findAll();
+		List<MensalidadeDTO> listDTO = list.stream().map(obj -> new MensalidadeDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 }

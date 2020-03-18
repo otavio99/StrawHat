@@ -5,23 +5,23 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.strawhat.model.Evento;
+import br.com.strawhat.model.Mensalidade;
 
-public class EventoDTO implements Serializable{
+public class MensalidadeDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer id;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data;
-	private Integer tipo;
+	private Double valor;
 	
-	public EventoDTO() {}
-
-	public EventoDTO(Evento obj) {
+	public MensalidadeDTO() {}
+	
+	public MensalidadeDTO(Mensalidade obj) {
 		id = obj.getId();
 		data = obj.getData();
-		tipo = obj.getTipo().getId();
+		valor = obj.getValor();
 	}
 
 	public Integer getId() {
@@ -40,11 +40,11 @@ public class EventoDTO implements Serializable{
 		this.data = data;
 	}
 
-	public Integer getTipo() {
-		return tipo;
+	public Double getValor() {
+		return valor;
 	}
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
+	public void setValor(Double valor) {
+		this.valor = valor;
 	}
 }

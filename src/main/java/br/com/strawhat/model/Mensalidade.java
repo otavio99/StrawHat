@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity(name = "mensalidade")
 public class Mensalidade implements Serializable{
@@ -25,7 +26,6 @@ public class Mensalidade implements Serializable{
 	private Date data;
 	private Double valor;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "associado_id")
 	private Associado associado;
@@ -58,10 +58,12 @@ public class Mensalidade implements Serializable{
 		this.id = id;
 	}
 
+	@JsonIgnore
 	public Associado getAssociado() {
 		return associado;
 	}
 
+	@JsonProperty
 	public void setAssociado(Associado associado) {
 		this.associado = associado;
 	}

@@ -14,6 +14,7 @@ public class EventoDTO implements Serializable{
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data;
+	
 	private Integer tipo;
 	
 	public EventoDTO() {}

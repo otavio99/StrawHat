@@ -12,7 +12,6 @@ public class EntidadeDTO {
 	private Integer id;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	@NotEmpty(message = "Preenchimento Obrigatório")
 	private Date data;
 	
 	@NotEmpty(message = "Preenchimento Obrigatório")

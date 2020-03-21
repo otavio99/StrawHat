@@ -43,8 +43,16 @@ public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<StandardError> dataFormatError(HttpMessageNotReadableException e, HttpServletRequest request){
-		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "Formato de data inválido, esperado o formato: dd/MM/yyyy",
-				System.currentTimeMillis());
+		StandardError err;
+		
+		if(e.getMessage().contains("Date")) {
+			err = new StandardError(HttpStatus.BAD_REQUEST.value(), "Formato de data inválido, esperado o formato: dd/MM/yyyy",
+					System.currentTimeMillis());
+		}else {
+			err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(),
+					System.currentTimeMillis());
+		}
+		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 }

@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -20,11 +18,12 @@ import br.com.strawhat.model.enums.TipoEvento;
 public class Batismo extends PadrinhosEvento implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToMany
-	@JoinTable(name = "ENTIDADE_BATISMO",
-		joinColumns = @JoinColumn(name = "entidade_id"), 
-		inverseJoinColumns = @JoinColumn(name = "batismo_id")
-	)
+//	@ManyToMany
+//	@JoinTable(name = "ENTIDADE_BATISMO",
+//		joinColumns = @JoinColumn(name = "entidade_id"), 
+//		inverseJoinColumns = @JoinColumn(name = "batismo_id")
+//	)
+	@ManyToMany(mappedBy = "batismos")
 	private List<Entidade> padrinhos = new ArrayList<Entidade>();
 	
 	public Batismo() {}

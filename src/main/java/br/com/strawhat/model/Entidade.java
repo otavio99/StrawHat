@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity(name = "entidade")
 public class Entidade implements Serializable {
@@ -26,8 +27,7 @@ public class Entidade implements Serializable {
 	private Date data;
 	private String nome;
 
-	@JsonIgnore
-	@ManyToMany(mappedBy = "padrinhos")
+	@ManyToMany//(mappedBy = "padrinhos")
 	private List<Batismo> batismos = new ArrayList<Batismo>();
 
 	public Entidade() {
@@ -64,10 +64,12 @@ public class Entidade implements Serializable {
 		this.nome = nome;
 	}
 
+	@JsonIgnore
 	public List<Batismo> getBatismos() {
 		return batismos;
 	}
 
+	@JsonProperty
 	public void setBatismos(List<Batismo> batismos) {
 		this.batismos = batismos;
 	}
